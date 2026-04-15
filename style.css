@@ -1,0 +1,96 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #060a10;
+  color: #f0f6ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #00c8f0;
+}
+
+.search {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 2rem;
+}
+
+input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 200, 240, 0.3);
+  background: #0d1825;
+  color: #f0f6ff;
+  font-size: 15px;
+}
+
+button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: #00c8f0;
+  color: #060a10;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #38d9f5;
+}
+
+.weather-card {
+  background: #0d1825;
+  border: 1px solid rgba(0, 200, 240, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 1rem;
+}
+
+#city-name {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #00c8f0;
+}
+
+#temperature {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+#description {
+  font-size: 1rem;
+  color: #7a9bb5;
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+}
+
+#humidity {
+  font-size: 0.9rem;
+  color: #7a9bb5;
+}
+
+#error-msg {
+  color: #ff6b6b;
+  font-size: 14px;
+}
