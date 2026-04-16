@@ -1,30 +1,64 @@
 const apiKey = '9d4dc8650ecee2918a65d11cfca4797f';
 
-function getWeather() {
-  const city = document.getElementById('city-input').value;
+/**
+ * Main function to fetch weather data
+ * Using async/await for better readability and error handling
+ */
+async function getWeather() {
+  const cityInput = document.getElementById('city-input');
+  const city = cityInput.value.trim();
+  const errorDisplay = document.getElementById('error-msg');
 
+  // 1. Validation: Check if input is empty
   if (city === '') {
-    document.getElementById('error-msg').innerText = 'Please enter a city name.';
+    errorDisplay.innerText = '都市名を入力してください (Please enter a city name).';
     return;
   }
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  // 2. URL Construction: Added &lang=ja for Japanese descriptions
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ja`;
 
-  fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      if (data.cod === '404') {
-        document.getElementById('error-msg').innerText = 'City not found. Try again.';
-        return;
-      }
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
 
-      document.getElementById('error-msg').innerText = '';
-      document.getElementById('city-name').innerText = data.name;
-      document.getElementById('temperature').innerText = data.main.temp + '°C';
-      document.getElementById('description').innerText = data.weather[0].description;
-      document.getElementById('humidity').innerText = 'Humidity: ' + data.main.humidity + '%';
-    })
-    .catch(error => {
-      document.getElementById('error-msg').innerText = 'Something went wrong. Try again.';
-    });
+    // 3. Check for "City Not Found" or other API errors
+    if (data.cod === '404') {
+      errorDisplay.innerText = '都市が見つかりませんでした (City not found).';
+      clearDisplay();
+      return;
+    }
+
+    // 4. Success: Update the UI
+    errorDisplay.innerText = '';
+    document.getElementById('city-name').innerText = `${data.name}, ${data.sys.country}`;
+    document.getElementById('temperature').innerText = Math.round(data.main.temp) + '°C';
+    document.getElementById('description').innerText = data.weather[0].description;
+    document.getElementById('humidity').innerText = `湿度 (Humidity): ${data.main.humidity}%`;
+    
+    // Optional: Add wind speed since your HTML has it
+    if(document.getElementById('wind-speed')) {
+        document.getElementById('wind-speed').innerText = `風速 (Wind): ${data.wind.speed} m/s`;
+    }
+
+  } catch (error) {
+    // 5. Catch network errors (like no internet)
+    errorDisplay.innerText = 'エラーが発生しました。再試行してください。';
+    console.error("Fetch error:", error);
+  }
 }
+
+// Function to reset the display on error
+function clearDisplay() {
+  document.getElementById('city-name').innerText = '--';
+  document.getElementById('temperature').innerText = '--°C';
+  document.getElementById('description').innerText = '--';
+  document.getElementById('humidity').innerText = 'Humidity: --%';
+}
+
+// Add event listener for the "Enter" key for better User Experience (UX)
+document.getElementById('city-input').addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    getWeather();
+  }
+});
