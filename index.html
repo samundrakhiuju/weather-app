@@ -1,38 +1,36 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather App | お天気アプリ</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div class="container">
-    <h1>Weather App / お天気アプリ</h1>
+    <div class="weather-card">
+        <h1>Weather App / お天気アプリ</h1>
+        
+        <div class="search-box">
+            <input type="text" id="city-input" placeholder="Enter city name...">
+            <button onclick="getWeather()">Search / 検索</button>
+        </div>
 
-    <div class="search">
-      <input type="text" id="city-input" placeholder="Enter city name... (例: Tokyo)">
-      <button id="search-btn">Search / 検索</button>
+        <p id="error-msg" style="color: red;"></p>
+
+        <div class="info">
+            <h2 id="city-name">--</h2>
+            <h1 id="temperature">--°C</h1>
+            <p id="description">--</p>
+            <div class="details">
+                <p id="humidity">Humidity / 湿度: --%</p>
+                <p id="wind-speed">Wind / 風速: -- m/s</p>
+            </div>
+        </div>
+        
+        <br>
+        <a href="../index.html">← Back to Portfolio</a>
     </div>
 
-    <div class="weather-card" id="weather-card">
-      <h2 id="city-name">--</h2>
-      <div id="weather-icon"></div> <p id="temperature" class="temp">--°C</p>
-      <p id="description">--</p>
-      
-      <div class="details">
-        <p id="humidity">Humidity / 湿度: --%</p>
-        <p id="wind-speed">Wind / 風速: -- m/s</p>
-      </div>
-    </div>
-
-    <p id="error-msg" class="error"></p>
-    
-    <a href="index.html" class="back-link">← Back to Portfolio</a>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
