@@ -1,4 +1,4 @@
-const apiKey = '9d4dc8650ecee2918a65d11cfca4797f';
+const apiKey = 'c5fbee95adf7b27e0fbf34e33b9801d3';
 
 /**
  * Main function to fetch weather data
