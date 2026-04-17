@@ -10,6 +10,7 @@ async function getWeather() {
         return;
     }
 
+    // Correct OpenWeatherMap URL
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ja`;
 
     try {
@@ -17,7 +18,12 @@ async function getWeather() {
         const data = await response.json();
 
         if (data.cod === '404') {
-            errorDisplay.innerText = 'City not found.';
+            errorDisplay.innerText = 'City not found (都市が見つかりません).';
+            return;
+        } 
+        
+        if (data.cod === 401) {
+            errorDisplay.innerText = 'API Key is not active yet. Wait 30 mins.';
             return;
         }
 
@@ -29,12 +35,14 @@ async function getWeather() {
         document.getElementById('wind-speed').innerText = `Wind / 風速: ${data.wind.speed} m/s`;
 
     } catch (error) {
-        errorDisplay.innerText = 'Error fetching data.';
-        console.error(error);
+        errorDisplay.innerText = 'Network error. Check your connection.';
+        console.error("DEBUG INFO:", error);
     }
 }
 
-// Event listener for Enter key
+// Add Enter key support
 document.getElementById('city-input').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') getWeather();
+    if (e.key === 'Enter') {
+        getWeather();
+    }
 });
